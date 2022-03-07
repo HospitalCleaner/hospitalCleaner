@@ -23,7 +23,7 @@ public class FeedbackEntity extends BaseEntity {
     private RoomEntity room;
 
 
-    @Column(name="id")
+    @Column(name="description")
     private String description;
 
     @Column(name = "star")

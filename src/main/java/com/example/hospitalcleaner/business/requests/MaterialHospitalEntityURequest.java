@@ -1,16 +1,21 @@
 package com.example.hospitalcleaner.business.requests;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class MaterialHospitalEntityURequest implements Serializable {
-    private final int isActive;
-    private final int id;
-    private final int materialId;
-    private final int hospitalId;
-    private final int quantity;
-    private final LocalDate expiryDate;
+    private  int isActive;
+    private  int id;
+    private  int materialId;
+    private  int hospitalId;
+    private  int quantity;
+    private  LocalDate expiryDate;
 }

@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,6 +33,10 @@ public class RoomEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private HospitalEntity hospital;
+
+    @OneToMany(mappedBy = "room")
+    private List<FeedbackEntity> feedbackEntities;
+
 
 
 }

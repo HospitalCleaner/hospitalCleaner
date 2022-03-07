@@ -9,17 +9,31 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "boss_id")
 @Table(name = "boss")
 public class BossEntity extends UserEntity {
 
-    //hastane ile one to one
+
+    private String deneme;
 
     @OneToMany(mappedBy = "boss")
     private List<CleanerEntity> cleaners;
+
+    public BossEntity(String deneme) {
+        this.deneme = deneme;
+    }
+
+    public BossEntity() {
+    }
+
+    public String getDeneme() {
+        return deneme;
+    }
+
+    public void setDeneme(String deneme) {
+        this.deneme = deneme;
+    }
+
 
 
 }

@@ -1,10 +1,27 @@
 package com.example.hospitalcleaner.business.requests;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
+
 public class CleanerEntityDRequest implements Serializable {
-    private final int id;
+    private  int id;
+
+    public CleanerEntityDRequest(int id) {
+        this.id = id;
+    }
+
+    public CleanerEntityDRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -1,14 +1,16 @@
 package com.example.hospitalcleaner.business.requests;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
+
 public class FeedbackEntityURequest implements Serializable {
-    private final int isActive;
-    private final int id;
-    private final int roomId;
-    private final String description;
-    private final int star;
+    private int isActive;
+    private int id;
+    private int roomId;
+    private String description;
+    private int star;
 }
