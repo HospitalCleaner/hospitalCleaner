@@ -11,7 +11,7 @@ import com.example.hospitalcleaner.entity.BossEntity;
 import java.util.List;
 
 public interface BossService {
-    DataResult<List<BossEntityDto>> getAll(int a);
+    DataResult<List<BossEntityDto>> getAll();
     Result add(BossEntityCRequest bossEntityCRequest);
     Result update(BossEntityURequest bossEntityURequest);
     Result delete(BossEntityDRequest bossEntityDRequest);

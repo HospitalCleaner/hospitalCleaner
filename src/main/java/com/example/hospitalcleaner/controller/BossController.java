@@ -26,11 +26,11 @@ public class BossController {
     }
 
     @GetMapping("getAll")
-    public DataResult<List<BossEntityDto>> getAll(@RequestParam int a)  {
-        return this.bossService.getAll(a);
+    public DataResult<List<BossEntityDto>> getAll()  {
+        return this.bossService.getAll();
     }
 
-    @PutMapping("add")
+    @PostMapping("add")
     public Result add(@RequestBody BossEntityCRequest bossEntityCRequest) {
         return this.bossService.add(bossEntityCRequest);
     }

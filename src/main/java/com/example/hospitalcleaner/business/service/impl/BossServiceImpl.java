@@ -29,20 +29,14 @@ public class BossServiceImpl implements BossService {
     @Autowired
     private BossEntityRepository bossEntityRepository;
 
-    @Autowired
-    private ModelMapperService modelMapperService;
-
 
     @Override
-    public DataResult<List<BossEntityDto>> getAll(int a) {
+    public DataResult<List<BossEntityDto>> getAll() {
+    List<BossEntity> bossEntities=this.bossEntityRepository.findAll();
+    List<BossEntityDto> bossEntityDtos=bossMapper.toBossDtoList(bossEntities);
 
 
-       BossEntityDto bossEntities= this.bossEntityRepository.getById(a).getData();
-       List<BossEntityDto> b =new ArrayList<>();
-       b.add(bossEntities);
-
-
-        return new SuccessDataResult<List<BossEntityDto>>(b);
+        return new SuccessDataResult<>(bossEntityDtos);
     }
 
     @Override
