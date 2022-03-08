@@ -17,7 +17,6 @@ public class MaterialHospitalEntity extends BaseEntity {
     private int id;
 
 
-
     @ManyToOne
     @JoinColumn(name = "material_id")
     private MaterialEntity material;

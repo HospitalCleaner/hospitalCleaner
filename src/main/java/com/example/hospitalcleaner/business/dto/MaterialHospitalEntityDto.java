@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 
 public class MaterialHospitalEntityDto implements Serializable {
-    private  int id;
+
     private  int materialId;
     private  String materialName;
     private  int hospitalId;
@@ -18,8 +18,7 @@ public class MaterialHospitalEntityDto implements Serializable {
     private  int quantity;
     private  LocalDate expiryDate;
 
-    public MaterialHospitalEntityDto(int id, int materialId, String materialName, int hospitalId, String hospitalName, String hospitalAddress, int quantity, LocalDate expiryDate) {
-        this.id = id;
+    public MaterialHospitalEntityDto(int materialId, String materialName, int hospitalId, String hospitalName, String hospitalAddress, int quantity, LocalDate expiryDate) {
         this.materialId = materialId;
         this.materialName = materialName;
         this.hospitalId = hospitalId;
@@ -32,13 +31,7 @@ public class MaterialHospitalEntityDto implements Serializable {
     public MaterialHospitalEntityDto() {
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getMaterialId() {
         return materialId;

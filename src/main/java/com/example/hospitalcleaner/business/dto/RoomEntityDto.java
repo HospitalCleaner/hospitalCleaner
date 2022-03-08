@@ -11,9 +11,17 @@ public class RoomEntityDto implements Serializable {
     private  int id;
     private  String roomName;
 
-    public RoomEntityDto(int id, String roomName) {
+    private int cleanerId;
+
+    private int hospitalId;
+
+
+
+    public RoomEntityDto(int id, String roomName, int cleanerId, int hospitalId ) {
         this.id = id;
         this.roomName = roomName;
+        this.cleanerId=cleanerId;
+        this.hospitalId=hospitalId;
     }
 
     public RoomEntityDto() {
@@ -33,5 +41,21 @@ public class RoomEntityDto implements Serializable {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public int getCleanerId() {
+        return cleanerId;
+    }
+
+    public void setCleanerId(int cleanerId) {
+        this.cleanerId = cleanerId;
+    }
+
+    public int getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
     }
 }
