@@ -58,6 +58,8 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public DataResult<BossEntityDto> getById(int id) {
-       return new SuccessDataResult<BossEntityDto> (this.bossEntityRepository.getById(id).getData());
+        BossEntity bossEntity=this.bossEntityRepository.getById(id);
+        BossEntityDto bossEntityDto=bossMapper.bossEntityToDto(bossEntity);
+       return new SuccessDataResult<BossEntityDto> (bossEntityDto);
     }
 }

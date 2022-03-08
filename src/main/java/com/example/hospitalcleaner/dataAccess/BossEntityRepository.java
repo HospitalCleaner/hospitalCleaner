@@ -11,6 +11,6 @@ import java.util.Optional;
 
 public interface BossEntityRepository extends JpaRepository<BossEntity, Integer> {
 
-    DataResult<BossEntityDto> getById(int id);
+
 
 }
