@@ -6,10 +6,21 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class MaterialEntityDRequest implements Serializable {
     private  int id;
+
+    public MaterialEntityDRequest(int id) {
+        this.id = id;
+    }
+
+    public MaterialEntityDRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

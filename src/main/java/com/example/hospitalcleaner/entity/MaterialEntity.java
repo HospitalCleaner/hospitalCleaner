@@ -9,9 +9,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "materials")
 public class MaterialEntity extends BaseEntity{
@@ -27,5 +24,29 @@ public class MaterialEntity extends BaseEntity{
     private List<MaterialHospitalEntity> materialHospitals;
 
 
+    public MaterialEntity(int id, String name, List<MaterialHospitalEntity> materialHospitals) {
+        this.id = id;
+        this.name = name;
+        this.materialHospitals = materialHospitals;
+    }
+
+    public MaterialEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

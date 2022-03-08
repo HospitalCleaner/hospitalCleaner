@@ -6,10 +6,22 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
 
-@AllArgsConstructor
-@NoArgsConstructor
 public class MaterialEntityCRequest implements Serializable {
     private  String name;
+
+    public MaterialEntityCRequest(String name) {
+        this.name = name;
+    }
+
+    public MaterialEntityCRequest() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

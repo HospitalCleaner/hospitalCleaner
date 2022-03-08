@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class BossEntityURequest implements Serializable {
     private  int isActive;
     private  int id;

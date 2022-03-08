@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "cleaner_id")
 @Table(name = "cleaners")
 public class CleanerEntity extends UserEntity {
@@ -22,4 +19,20 @@ public class CleanerEntity extends UserEntity {
     @OneToMany(mappedBy = "cleaner")
     private List<RoomEntity> rooms;
 
+    public BossEntity getBoss() {
+        return boss;
+    }
+
+    public void setBoss(BossEntity boss) {
+        this.boss = boss;
+    }
+
+    public CleanerEntity(int id, String name, String surName, String email, String password, String number, BossEntity boss) {
+        super(id, name, surName, email, password, number);
+        this.boss = boss;
+    }
+
+    public CleanerEntity() {
+
+    }
 }

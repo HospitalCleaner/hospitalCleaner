@@ -36,6 +36,7 @@ public class BossServiceImpl implements BossService {
     List<BossEntityDto> bossEntityDtos=bossMapper.toBossDtoList(bossEntities);
 
 
+
         return new SuccessDataResult<>(bossEntityDtos);
     }
 
@@ -60,6 +61,6 @@ public class BossServiceImpl implements BossService {
     public DataResult<BossEntityDto> getById(int id) {
         BossEntity bossEntity=this.bossEntityRepository.getById(id);
         BossEntityDto bossEntityDto=bossMapper.bossEntityToDto(bossEntity);
-       return new SuccessDataResult<BossEntityDto> (bossEntityDto);
+        return new SuccessDataResult<BossEntityDto> (bossEntityDto);
     }
 }

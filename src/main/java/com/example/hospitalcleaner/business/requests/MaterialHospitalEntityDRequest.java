@@ -6,10 +6,21 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class MaterialHospitalEntityDRequest implements Serializable {
     private  int id;
+
+    public MaterialHospitalEntityDRequest(int id) {
+        this.id = id;
+    }
+
+    public MaterialHospitalEntityDRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

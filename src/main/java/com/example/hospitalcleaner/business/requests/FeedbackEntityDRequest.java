@@ -6,9 +6,21 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class FeedbackEntityDRequest implements Serializable {
     private int id;
+
+    public FeedbackEntityDRequest(int id) {
+        this.id = id;
+    }
+
+    public FeedbackEntityDRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

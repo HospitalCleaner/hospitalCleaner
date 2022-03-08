@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "feedbacks")
 public class FeedbackEntity extends BaseEntity {
@@ -29,4 +27,45 @@ public class FeedbackEntity extends BaseEntity {
     @Column(name = "star")
     private int star;
 
+    public FeedbackEntity(int id, RoomEntity room, String description, int star) {
+        this.id = id;
+        this.room = room;
+        this.description = description;
+        this.star = star;
+    }
+
+    public FeedbackEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public RoomEntity getRoom() {
+        return room;
+    }
+
+    public void setRoom(RoomEntity room) {
+        this.room = room;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
 }

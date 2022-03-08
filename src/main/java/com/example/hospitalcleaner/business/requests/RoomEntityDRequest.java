@@ -6,10 +6,21 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class RoomEntityDRequest implements Serializable {
     private  int id;
+
+    public RoomEntityDRequest(int id) {
+        this.id = id;
+    }
+
+    public RoomEntityDRequest() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

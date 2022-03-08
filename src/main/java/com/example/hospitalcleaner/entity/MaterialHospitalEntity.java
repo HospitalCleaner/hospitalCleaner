@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "materials_hospitals")
 public class MaterialHospitalEntity extends BaseEntity {
@@ -36,4 +33,55 @@ public class MaterialHospitalEntity extends BaseEntity {
 
     @Column(name="expiry_date")
     private LocalDate expiryDate;
+
+    public MaterialHospitalEntity(int id, MaterialEntity material, HospitalEntity hospital, int quantity, LocalDate expiryDate) {
+        this.id = id;
+        this.material = material;
+        this.hospital = hospital;
+        this.quantity = quantity;
+        this.expiryDate = expiryDate;
+    }
+
+    public MaterialHospitalEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public MaterialEntity getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(MaterialEntity material) {
+        this.material = material;
+    }
+
+    public HospitalEntity getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(HospitalEntity hospital) {
+        this.hospital = hospital;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
+    }
 }
