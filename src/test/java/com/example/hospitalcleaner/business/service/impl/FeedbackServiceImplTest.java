@@ -5,6 +5,7 @@ import com.example.hospitalcleaner.business.core.results.DataResult;
 import com.example.hospitalcleaner.business.core.results.Result;
 import com.example.hospitalcleaner.business.dto.FeedbackEntityDto;
 import com.example.hospitalcleaner.business.requests.FeedbackEntityDRequest;
+import com.example.hospitalcleaner.business.requests.FeedbackEntityURequest;
 import com.example.hospitalcleaner.dataAccess.FeedbackEntityRepository;
 import com.example.hospitalcleaner.entity.FeedbackEntity;
 import com.example.hospitalcleaner.entity.RoomEntity;
@@ -47,20 +48,31 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-    public void testAdd() {
+    public void testAdd(){
     }
 
     @Test
     public void testUpdateWhenGivenIdExists() {
-        FeedbackEntityDRequest feedbackEntityDRequest=new FeedbackEntityDRequest();
-        feedbackEntityDRequest.setId(1);
+        FeedbackEntityURequest feedbackEntityURequest=new FeedbackEntityURequest();
+        feedbackEntityURequest.setId(1);
         FeedbackEntity feedbackEntity=new FeedbackEntity();
         Optional<FeedbackEntity> optionalFeedbackEntity=Optional.of(feedbackEntity);
         Mockito.when(feedbackEntityRepository.findById(1)).thenReturn(optionalFeedbackEntity);
+
+        Result result=feedbackService.update(feedbackEntityURequest);
+        assertEquals("güncellendi",result.getMessage());
+        assertTrue(result.isSuccess());
     }
 
     @Test
     public void testUpdateWhenGivenIdNotExists() {
+        FeedbackEntityURequest feedbackEntityURequest=new FeedbackEntityURequest();
+        feedbackEntityURequest.setId(1);
+        Mockito.when(feedbackEntityRepository.findById(1)).thenReturn(Optional.empty());
+
+        Result result=feedbackService.update(feedbackEntityURequest);
+        assertEquals("feedback bulunamadı.",result.getMessage());
+        assertFalse(result.isSuccess());
     }
 
     @Test
