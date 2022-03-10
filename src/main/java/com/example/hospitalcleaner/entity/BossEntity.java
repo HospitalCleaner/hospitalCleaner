@@ -19,11 +19,18 @@ public class BossEntity extends UserEntity {
     @OneToMany(mappedBy = "boss")
     private List<CleanerEntity> cleaners;
 
-    public BossEntity(String deneme) {
+
+    public BossEntity(){
+
+    }
+
+    public BossEntity(int id, String name, String surName, String email, String password, String number, String deneme) {
+        super(id, name, surName, email, password, number);
         this.deneme = deneme;
     }
 
-    public BossEntity() {
+    public BossEntity(String deneme) {
+        this.deneme = deneme;
     }
 
     public String getDeneme() {
@@ -33,6 +40,7 @@ public class BossEntity extends UserEntity {
     public void setDeneme(String deneme) {
         this.deneme = deneme;
     }
+
 
 
 

@@ -1,0 +1,166 @@
+package com.example.hospitalcleaner.business.service.impl;
+
+import com.example.hospitalcleaner.business.core.mapper.BossMapper;
+import com.example.hospitalcleaner.business.core.results.DataResult;
+import com.example.hospitalcleaner.business.core.results.Result;
+import com.example.hospitalcleaner.business.dto.BossEntityDto;
+import com.example.hospitalcleaner.business.requests.BossEntityCRequest;
+import com.example.hospitalcleaner.business.requests.BossEntityDRequest;
+import com.example.hospitalcleaner.business.requests.BossEntityURequest;
+import com.example.hospitalcleaner.dataAccess.BossEntityRepository;
+import com.example.hospitalcleaner.entity.BossEntity;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
+public class BossServiceImplTest {
+
+    @InjectMocks
+    private BossServiceImpl bossService;
+
+    @Mock
+    private BossEntityRepository bossEntityRepository;
+
+    @Spy
+    private BossMapper bossMapper= Mappers.getMapper(BossMapper.class);
+
+    @Test
+    public void testGetAll() {
+        List<BossEntity> bossEntities=new ArrayList<>();
+        for(int i=1;i<=5;i++){
+            bossEntities.add(new BossEntity());
+        }
+
+        Mockito.when(bossEntityRepository.findAll()).thenReturn(bossEntities);
+        List<BossEntityDto> bossEntityDtos=bossMapper.toBossDtoList(bossEntities);
+        Mockito.when(bossMapper.toBossDtoList(bossEntities)).thenReturn(bossEntityDtos);
+        DataResult<List<BossEntityDto>> result=bossService.getAll();
+
+        assertEquals(bossEntityDtos,result.getData());
+        assertEquals(5,result.getData().size());
+
+    }
+
+    @Test
+    public void when_bossEntityCRequest_Expect_saveBossDb(){
+
+        BossEntityCRequest bossEntityCRequest=new BossEntityCRequest();
+        bossEntityCRequest.setDeneme("test-deneme");
+        bossEntityCRequest.setEmail("test@test");
+        bossEntityCRequest.setName("test-name");
+        bossEntityCRequest.setNumber("12345");
+        bossEntityCRequest.setSurName("test-surname");
+        bossEntityCRequest.setPassword("123");
+
+        BossEntity bossEntity=bossMapper.bossCreateToEntity(bossEntityCRequest);
+
+        Mockito.when(bossEntityRepository.save(Mockito.any())).thenReturn(bossEntity);
+
+        Result result=bossService.add(bossEntityCRequest);
+
+        assertEquals("eklendi",result.getMessage());
+        assertTrue(result.isSuccess());
+    }
+
+    @Test
+    public void when_bossEntityURequest_Expect_updateBossDb(){
+        BossEntityURequest bossEntityURequest=new BossEntityURequest();
+        bossEntityURequest.setId(1);
+        bossEntityURequest.setEmail("test-email");
+        bossEntityURequest.setName("test-name");
+        bossEntityURequest.setSurName("test-surname");
+        bossEntityURequest.setNumber("12345");
+        bossEntityURequest.setPassword("test");
+        bossEntityURequest.setIsActive(1);
+
+        BossEntity bossEntity=new BossEntity();
+        Optional<BossEntity> optionalBossEntity=Optional.of(bossEntity);
+        Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(optionalBossEntity);
+        assertTrue(optionalBossEntity.isPresent());
+        //bossEntity=bossMapper.bossUpdateToEntity(bossEntityURequest);
+
+        Result result=this.bossService.update(bossEntityURequest);
+
+        assertEquals("güncellendi.",result.getMessage());
+
+    }
+
+    @Test
+    public void when_GivenIdNotExists_Expect_NotUpdate(){
+        BossEntityURequest bossEntityURequest=new BossEntityURequest();
+        bossEntityURequest.setId(1);
+        Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(Optional.empty());
+
+        Result result=bossService.update(bossEntityURequest);
+        assertEquals("boss bulunamadı.",result.getMessage());
+        assertFalse(result.isSuccess());
+
+    }
+
+    @Test
+    public void testDeleteWhenGivenIdNotExists() {
+
+        BossEntityDRequest bossEntityDRequest=new BossEntityDRequest();
+        bossEntityDRequest.setId(1);
+        Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(Optional.empty());
+
+        Result result=bossService.delete(bossEntityDRequest);
+
+        assertEquals("boss bulunamadı.",result.getMessage());
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    public void testDeleteWhenGivenIdExists() {
+        BossEntity bossEntity=new BossEntity();
+        Optional<BossEntity> optionalBossEntity=Optional.of(bossEntity);
+        BossEntityDRequest bossEntityDRequest=new BossEntityDRequest();
+        bossEntityDRequest.setId(1);
+        Mockito.when(bossEntityRepository.findById(1)).thenReturn(optionalBossEntity);
+
+        Result result=bossService.delete(bossEntityDRequest);
+        assertEquals("silindi.",result.getMessage());
+        assertTrue(result.isSuccess());
+        assertNotNull(optionalBossEntity);
+        assertEquals(0,optionalBossEntity.get().getIsActive());
+
+
+    }
+
+    @Test
+    public  void testGetByIdWhenGivenIdExists() {
+
+        BossEntity bossEntity=new BossEntity();
+        bossEntity.setId(15);
+        Mockito.when(bossEntityRepository.existsById(15)).thenReturn(true);
+        Mockito.when(bossEntityRepository.getById(15)).thenReturn(bossEntity);
+        BossEntityDto bossEntityDto=bossMapper.bossEntityToDto(bossEntity);
+        Mockito.when(bossMapper.bossEntityToDto(bossEntity)).thenReturn(bossEntityDto);
+        DataResult<?> result=bossService.getById(15);
+
+        assertEquals(bossEntityDto,result.getData());
+    }
+
+    @Test
+    public  void testGetByIdWhenGivenIdNotExists() {
+        Mockito.when(bossEntityRepository.existsById(Mockito.anyInt())).thenReturn(false);
+
+        DataResult<?> result=bossService.getById(Mockito.anyInt());
+
+        assertEquals(null,result.getData());
+        assertFalse(result.isSuccess());
+        assertNull(result.getData());
+    }
+}

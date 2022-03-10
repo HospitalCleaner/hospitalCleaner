@@ -5,6 +5,8 @@ import com.example.hospitalcleaner.business.core.results.DataResult;
 import com.example.hospitalcleaner.business.core.results.Result;
 import com.example.hospitalcleaner.business.dto.BossEntityDto;
 import com.example.hospitalcleaner.business.requests.BossEntityCRequest;
+import com.example.hospitalcleaner.business.requests.BossEntityDRequest;
+import com.example.hospitalcleaner.business.requests.BossEntityURequest;
 import com.example.hospitalcleaner.business.service.BossService;
 import com.example.hospitalcleaner.entity.BossEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,16 @@ public class BossController {
     @PostMapping("add")
     public Result add(@RequestBody BossEntityCRequest bossEntityCRequest) {
         return this.bossService.add(bossEntityCRequest);
+    }
+
+    @PutMapping("update")
+    public Result update(@RequestBody BossEntityURequest bossEntityURequest) {
+        return this.bossService.update(bossEntityURequest);
+    }
+
+    @DeleteMapping("delete")
+    public Result delete(@RequestBody BossEntityDRequest bossEntityDRequest) {
+        return this.bossService.delete(bossEntityDRequest);
     }
 
     @GetMapping("getById")
