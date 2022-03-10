@@ -5,6 +5,7 @@ import com.example.hospitalcleaner.business.dto.RoomEntityDto;
 import com.example.hospitalcleaner.business.requests.RoomEntityCRequest;
 import com.example.hospitalcleaner.business.requests.RoomEntityURequest;
 import com.example.hospitalcleaner.entity.RoomEntity;
+import com.example.hospitalcleaner.entity.complexType.RoomEntityDtoComplexType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -24,4 +25,8 @@ public interface RoomMapper {
     @Mapping(source = "cleanerId" , target = "cleaner.id")
     @Mapping(source = "hospitalId",target = "hospital.id")
     RoomEntity roomUpdateToEntity(RoomEntityURequest roomEntityURequest);
+
+
+
+
 }

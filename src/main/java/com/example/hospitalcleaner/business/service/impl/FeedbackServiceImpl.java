@@ -11,6 +11,7 @@ import com.example.hospitalcleaner.entity.FeedbackEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +58,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public DataResult<List<FeedbackEntityDto>> getByRoomId(int roomId) {
       return new SuccessDataResult<>(this.feedbackMapper.feedbackEntitytoDtos(this.feedbackEntityRepository.getAllByRoomId(roomId)));
+    }
+
+    @Override
+    public DataResult<Double> getByRoomAverageStar(int roomId) {
+        Double a = this.feedbackEntityRepository.getByRoomIdAvaregaStar(roomId);
+        return new SuccessDataResult<Double>(a);
     }
 }

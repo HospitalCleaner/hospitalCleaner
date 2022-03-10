@@ -33,12 +33,12 @@ public class BossController {
     }
 
     @PostMapping("add")
-    public Result add(@RequestBody BossEntityCRequest bossEntityCRequest) {
+    public DataResult<BossEntityDto> add(@RequestBody BossEntityCRequest bossEntityCRequest) {
         return this.bossService.add(bossEntityCRequest);
     }
 
     @PutMapping("update")
-    public Result update(@RequestBody BossEntityURequest bossEntityURequest) {
+    public DataResult<BossEntityDto> update(@RequestBody BossEntityURequest bossEntityURequest) {
         return this.bossService.update(bossEntityURequest);
     }
 

@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface BossService {
     DataResult<List<BossEntityDto>> getAll();
-    Result add(BossEntityCRequest bossEntityCRequest);
-    Result update(BossEntityURequest bossEntityURequest);
+    DataResult<BossEntityDto> add(BossEntityCRequest bossEntityCRequest);
+    DataResult<BossEntityDto> update(BossEntityURequest bossEntityURequest);
     Result delete(BossEntityDRequest bossEntityDRequest);
     DataResult<BossEntityDto> getById(int id);
 

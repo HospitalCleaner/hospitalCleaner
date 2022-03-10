@@ -38,22 +38,23 @@ public class BossServiceImpl implements BossService {
     }
 
     @Override
-    public Result add(BossEntityCRequest bossEntityCRequest) {
+    public DataResult<BossEntityDto> add(BossEntityCRequest bossEntityCRequest) {
         BossEntity boss = this.bossMapper.bossCreateToEntity(bossEntityCRequest);
-        this.bossEntityRepository.save(boss);
-        return new SuccessResult("eklendi");
+        BossEntityDto bossEntityDto = this.bossMapper.bossEntityToDto(this.bossEntityRepository.save(boss));
+        return new SuccessDataResult<BossEntityDto>(bossEntityDto);
     }
 
     @Override
-    public Result update(BossEntityURequest bossEntityURequest) {
+    public DataResult<BossEntityDto> update(BossEntityURequest bossEntityURequest) {
 
         Optional<BossEntity> optionalBossEntity=this.bossEntityRepository.findById(bossEntityURequest.getId());
         if(!optionalBossEntity.isPresent()){
-            return new ErrorResult("boss bulunamadı.");
+            return new ErrorDataResult<>(null,"boss bulunamadı.");
         }
         BossEntity bossEntity=bossMapper.bossUpdateToEntity(bossEntityURequest);
-            bossEntityRepository.save(bossEntity);
-            return new SuccessResult("güncellendi.");
+        bossEntity =bossEntityRepository.save(bossEntity);
+        BossEntityDto bossEntityDto = this.bossMapper.bossEntityToDto(bossEntity);
+            return new SuccessDataResult<>(bossEntityDto,"güncellendi.");
 
     }
 

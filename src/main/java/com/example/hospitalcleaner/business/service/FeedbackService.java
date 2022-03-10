@@ -16,4 +16,5 @@ public interface FeedbackService {
     Result update(FeedbackEntityURequest feedbackEntityURequest);
     Result delete(FeedbackEntityDRequest feedbackEntityDRequest);
     DataResult<List<FeedbackEntityDto>> getByRoomId(int roomId);
+    DataResult<Double> getByRoomAverageStar(int roomId);
 }

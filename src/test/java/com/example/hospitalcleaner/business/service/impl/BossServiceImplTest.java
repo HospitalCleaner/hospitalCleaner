@@ -11,6 +11,7 @@ import com.example.hospitalcleaner.dataAccess.BossEntityRepository;
 import com.example.hospitalcleaner.entity.BossEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -68,10 +69,9 @@ public class BossServiceImplTest {
 
         Mockito.when(bossEntityRepository.save(Mockito.any())).thenReturn(bossEntity);
 
-        Result result=bossService.add(bossEntityCRequest);
 
-        assertEquals("eklendi",result.getMessage());
-        assertTrue(result.isSuccess());
+        assertEquals(bossEntity,bossService.add(bossEntityCRequest).getData());
+        assertTrue(bossService.add(bossEntityCRequest).isSuccess());
     }
 
     @Test
@@ -86,14 +86,22 @@ public class BossServiceImplTest {
         bossEntityURequest.setIsActive(1);
 
         BossEntity bossEntity=new BossEntity();
+
         Optional<BossEntity> optionalBossEntity=Optional.of(bossEntity);
         Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(optionalBossEntity);
-        assertTrue(optionalBossEntity.isPresent());
-        //bossEntity=bossMapper.bossUpdateToEntity(bossEntityURequest);
-
-        Result result=this.bossService.update(bossEntityURequest);
+        //assertTrue(optionalBossEntity.isPresent());
+        bossEntity=bossMapper.bossUpdateToEntity(bossEntityURequest);
+        Mockito.when(bossEntityRepository.save(Mockito.any())).thenReturn(bossEntity);
+        BossEntityDto bossEntityDto = bossMapper.bossEntityToDto(bossEntity);
+        //olmasa referans farklı oluyor
+        Mockito.when(this.bossMapper.bossEntityToDto(Mockito.any())).thenReturn(bossEntityDto);
+        DataResult<BossEntityDto> result=this.bossService.update(bossEntityURequest);
 
         assertEquals("güncellendi.",result.getMessage());
+        assertTrue(result.isSuccess());
+        //sor referanslar farklı oldugu için hata veriyor ama içindeki veriler birebir aynı
+        assertEquals(bossEntityDto,result.getData());
+
 
     }
 
@@ -103,12 +111,13 @@ public class BossServiceImplTest {
         bossEntityURequest.setId(1);
         Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(Optional.empty());
 
-        Result result=bossService.update(bossEntityURequest);
+        DataResult<BossEntityDto> result=bossService.update(bossEntityURequest);
         assertEquals("boss bulunamadı.",result.getMessage());
         assertFalse(result.isSuccess());
+        assertNull(result.getData());
 
     }
-
+    //test olmayan ıd verildiginde hatalı donmesi gerekir
     @Test
     public void testDeleteWhenGivenIdNotExists() {
 

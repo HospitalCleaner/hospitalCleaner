@@ -7,6 +7,7 @@ import com.example.hospitalcleaner.business.requests.RoomEntityCRequest;
 import com.example.hospitalcleaner.business.requests.RoomEntityDRequest;
 import com.example.hospitalcleaner.business.requests.RoomEntityURequest;
 import com.example.hospitalcleaner.business.service.RoomService;
+import com.example.hospitalcleaner.entity.complexType.RoomEntityDtoComplexType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,12 @@ public class RoomController {
     @GetMapping("getALlByRoomId")
     public DataResult<List<RoomEntityDto>> getALlByRoomId(@RequestParam int cleanerId){
         return this.roomService.getAllByCleanerId(cleanerId);
+    }
+
+    @GetMapping("getAverageStar")
+    public DataResult<RoomEntityDtoComplexType> getByAverageStar(@RequestParam int roomId)
+    {
+        return this.roomService.getRoomAvaregaStar(roomId);
     }
 
 
