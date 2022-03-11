@@ -28,7 +28,8 @@ public class CleanerServiceImpl implements CleanerService {
 
     @Override
     public DataResult<List<CleanerEntityDto>> getAll() {
-    return new SuccessDataResult<List<CleanerEntityDto>>(this.cleanerMapper.cleanerEntityToDtos(this.cleanerEntityRepository.findAll()));
+    return new SuccessDataResult<List<CleanerEntityDto>>(
+            this.cleanerMapper.cleanerEntityToDtos(this.cleanerEntityRepository.findAll()));
     }
 
     @Override
@@ -73,6 +74,10 @@ public class CleanerServiceImpl implements CleanerService {
 
     @Override
     public DataResult<List<CleanerEntityDto>> getAllByBossId(int bossId) {
+        if (!this.bossService.getById(bossId).isSuccess()){
+            return new ErrorDataResult<>(null);
+        }
+
         List<CleanerEntity> cleanerEntities = this.cleanerEntityRepository.getAllByBossId(bossId);
         List<CleanerEntityDto> cleanerEntityDtos = this.cleanerMapper.cleanerEntityToDtos(cleanerEntities);
        return new SuccessDataResult<List<CleanerEntityDto>>(cleanerEntityDtos);

@@ -2,10 +2,7 @@ package com.example.hospitalcleaner.business.service.impl;
 
 import com.example.hospitalcleaner.business.core.mapper.RoomCoplexTypeMapper;
 import com.example.hospitalcleaner.business.core.mapper.RoomMapper;
-import com.example.hospitalcleaner.business.core.results.DataResult;
-import com.example.hospitalcleaner.business.core.results.Result;
-import com.example.hospitalcleaner.business.core.results.SuccessDataResult;
-import com.example.hospitalcleaner.business.core.results.SuccessResult;
+import com.example.hospitalcleaner.business.core.results.*;
 import com.example.hospitalcleaner.business.dto.RoomEntityDto;
 import com.example.hospitalcleaner.business.requests.RoomEntityCRequest;
 import com.example.hospitalcleaner.business.requests.RoomEntityDRequest;
@@ -50,8 +47,13 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public DataResult<RoomEntityDtoComplexType> getRoomAvaregaStar(int roomId) {
-        RoomEntityDtoComplexType roomEntityDtoComplexType = new RoomEntityDtoComplexType();
-        roomEntityDtoComplexType =this.roomCoplexTypeMapper.roomEntitytoComplexType(this.roomEntityRepository.getById(roomId));
+       if (!roomEntityRepository.existsById(roomId)){
+           return new ErrorDataResult<>(null,"oda bulunamadı.");
+       }
+
+
+        RoomEntityDtoComplexType roomEntityDtoComplexType = this.roomCoplexTypeMapper.roomEntitytoComplexType(this.roomEntityRepository.getById(roomId));
+
 
         roomEntityDtoComplexType.setStar(feedbackService.getByRoomAverageStar(roomId).getData());
 

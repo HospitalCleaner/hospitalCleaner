@@ -43,7 +43,7 @@ public class BossController {
     }
 
     @DeleteMapping("delete")
-    public Result delete(@RequestBody BossEntityDRequest bossEntityDRequest) {
+    public DataResult<BossEntityDto> delete(@RequestBody BossEntityDRequest bossEntityDRequest) {
         return this.bossService.delete(bossEntityDRequest);
     }
 

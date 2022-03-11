@@ -74,7 +74,7 @@ public class CleanerServiceImplTest {
         BossEntityDto bossEntityDto=new BossEntityDto();
         Mockito.when(bossService.getById(1)).thenReturn(new SuccessDataResult<>(bossEntityDto));
         CleanerEntity cleanerEntity=cleanerMapper.cleanerCreateToEntity(cleanerEntityCRequest);
-        Mockito.when(cleanerEntityRepository.save(Mockito.any())).thenReturn(cleanerEntity);
+        //Mockito.when(cleanerEntityRepository.save(Mockito.any())).thenReturn(cleanerEntity);
         Result result=cleanerService.add(cleanerEntityCRequest);
 
         assertEquals("eklendi.",result.getMessage());
@@ -194,22 +194,36 @@ public class CleanerServiceImplTest {
     }
 
     @Test
+    public void testGetAllByBossIdWhenGivenIdNotExists(){
+        Mockito.when(bossService.getById(Mockito.anyInt())).thenReturn(new ErrorDataResult<>(null));
+        DataResult<List<CleanerEntityDto>> result = cleanerService.getAllByBossId(Mockito.anyInt());
+        assertNull(result.getData());
+       // assertEquals(2,result.getData().size());
+        assertFalse(result.isSuccess());
+
+    }
+
+    @Test
     public void testGetAllByBossId() {
         BossEntity bossEntity=new BossEntity();
         bossEntity.setId(1);
         List<CleanerEntity> cleanerEntities=new ArrayList<>();
-        for(CleanerEntity cleanerEntity:cleanerEntities){
+        for(int i=0;i<5;i++){
+            CleanerEntity cleanerEntity = new CleanerEntity();
             cleanerEntity.setBoss(bossEntity);
+            cleanerEntities.add(cleanerEntity);
         }
 
+        Mockito.when(bossService.getById(Mockito.anyInt())).thenReturn(new SuccessDataResult<>(null));
         Mockito.when(cleanerEntityRepository.getAllByBossId(bossEntity.getId())).thenReturn(cleanerEntities);
 
         List<CleanerEntityDto> cleanerEntityDtos=cleanerMapper.cleanerEntityToDtos(cleanerEntities);
-
+        Mockito.when(cleanerMapper.cleanerEntityToDtos(cleanerEntities)).thenReturn(cleanerEntityDtos);
         DataResult<List<CleanerEntityDto>> result=cleanerService.getAllByBossId(1);
 
         assertEquals(cleanerEntityDtos,result.getData());
         assertTrue(result.isSuccess());
+        assertEquals(cleanerEntityDtos.size(),result.getData().size());
 
     }
 }

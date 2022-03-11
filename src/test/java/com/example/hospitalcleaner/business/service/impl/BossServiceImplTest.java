@@ -125,25 +125,34 @@ public class BossServiceImplTest {
         bossEntityDRequest.setId(1);
         Mockito.when(bossEntityRepository.findById(Mockito.eq(1))).thenReturn(Optional.empty());
 
-        Result result=bossService.delete(bossEntityDRequest);
+        DataResult<BossEntityDto> result=bossService.delete(bossEntityDRequest);
 
         assertEquals("boss bulunamadı.",result.getMessage());
         assertFalse(result.isSuccess());
+        assertEquals(null,result.getData());
     }
 
     @Test
     public void testDeleteWhenGivenIdExists() {
         BossEntity bossEntity=new BossEntity();
+        bossEntity.setNumber("012873124");
+        bossEntity.setEmail("asdklşfjkajsf@ajskldfaf.com");
+        bossEntity.setName("asdklfşjalkf");
+        bossEntity.setDeneme("deneme");
+        bossEntity.setPassword("ajsdflkşajsf");
+        bossEntity.setSurName("ajsdfkljafs");
+        bossEntity.setId(1);
         Optional<BossEntity> optionalBossEntity=Optional.of(bossEntity);
         BossEntityDRequest bossEntityDRequest=new BossEntityDRequest();
         bossEntityDRequest.setId(1);
-        Mockito.when(bossEntityRepository.findById(1)).thenReturn(optionalBossEntity);
-
-        Result result=bossService.delete(bossEntityDRequest);
+        BossEntityDto bossEntityDto = bossMapper.bossEntityToDto(bossEntity);
+        Mockito.when(bossEntityRepository.findById(bossEntityDRequest.getId())).thenReturn(optionalBossEntity);
+        Mockito.when(bossEntityRepository.save(bossEntity)).thenReturn(bossEntity);
+        Mockito.when(bossMapper.bossEntityToDto(bossEntity)).thenReturn(bossEntityDto);
+        DataResult<BossEntityDto> result=bossService.delete(bossEntityDRequest);
         assertEquals("silindi.",result.getMessage());
         assertTrue(result.isSuccess());
-        assertNotNull(optionalBossEntity);
-        assertEquals(0,optionalBossEntity.get().getIsActive());
+        assertEquals(bossEntityDto.getSurName(),result.getData().getSurName());
 
 
     }
@@ -153,11 +162,13 @@ public class BossServiceImplTest {
 
         BossEntity bossEntity=new BossEntity();
         bossEntity.setId(15);
+        bossEntity.setSurName("kolay");
         Mockito.when(bossEntityRepository.existsById(15)).thenReturn(true);
         Mockito.when(bossEntityRepository.getById(15)).thenReturn(bossEntity);
         BossEntityDto bossEntityDto=bossMapper.bossEntityToDto(bossEntity);
-        Mockito.when(bossMapper.bossEntityToDto(bossEntity)).thenReturn(bossEntityDto);
-        DataResult<?> result=bossService.getById(15);
+        //yukarda kinin aynısı referanslar farklı oluyor ama degerler aynı
+       //  Mockito.when(bossMapper.bossEntityToDto(bossEntity)).thenReturn(bossEntityDto);
+        DataResult<BossEntityDto> result=bossService.getById(15);
 
         assertEquals(bossEntityDto,result.getData());
     }

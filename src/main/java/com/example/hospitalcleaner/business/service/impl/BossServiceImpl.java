@@ -59,15 +59,17 @@ public class BossServiceImpl implements BossService {
     }
 
     @Override
-    public Result delete(BossEntityDRequest bossEntityDRequest) {
+    public DataResult<BossEntityDto> delete(BossEntityDRequest bossEntityDRequest) {
        Optional<BossEntity> optionalBossEntity= bossEntityRepository.findById(bossEntityDRequest.getId());
         if(!optionalBossEntity.isPresent()){
-            return new ErrorResult("boss bulunamadı.");
+            return new ErrorDataResult<>(null,"boss bulunamadı.");
         }
         BossEntity bossEntity=optionalBossEntity.get();
         bossEntity.setIsActive(0);
-        bossEntityRepository.save(bossEntity);
-        return new SuccessResult("silindi.");
+       bossEntity= bossEntityRepository.save(bossEntity);
+       BossEntityDto bossEntityDto =this.bossMapper.bossEntityToDto(bossEntity);
+
+       return new SuccessDataResult(bossEntityDto,"silindi.");
     }
 
     @Override
