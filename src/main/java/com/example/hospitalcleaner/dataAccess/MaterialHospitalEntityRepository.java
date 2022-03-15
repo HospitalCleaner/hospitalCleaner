@@ -18,4 +18,6 @@ public interface MaterialHospitalEntityRepository extends JpaRepository<Material
             +" FROM MaterialHospitalEntity mh INNER JOIN mh.hospital h INNER JOIN mh.material m where mh.quantity<:quantity")
     List<MaterialHospitalEntityDto> getAllByRequirement(int quantity);
 
+    boolean existsByHospitalId(int hospitalId);
+
 }

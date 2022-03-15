@@ -1,10 +1,7 @@
 package com.example.hospitalcleaner.business.service.impl;
 
 import com.example.hospitalcleaner.business.core.mapper.MaterialHospitalMapper;
-import com.example.hospitalcleaner.business.core.results.DataResult;
-import com.example.hospitalcleaner.business.core.results.Result;
-import com.example.hospitalcleaner.business.core.results.SuccessDataResult;
-import com.example.hospitalcleaner.business.core.results.SuccessResult;
+import com.example.hospitalcleaner.business.core.results.*;
 import com.example.hospitalcleaner.business.dto.MaterialHospitalEntityDto;
 import com.example.hospitalcleaner.business.requests.MaterialHospitalEntityCRequest;
 import com.example.hospitalcleaner.business.requests.MaterialHospitalEntityDRequest;
@@ -33,7 +30,13 @@ public class MaterialHospitalServiceImpl implements MaterialHospitalService {
 
     @Override
     public DataResult<List<MaterialHospitalEntityDto>> getAllByHospitalId(int hospitalId) {
-        return new SuccessDataResult<>(this.materialHospitalMapper.materialEntitiesToDto(this.materialHospitalEntityRepository.getAllByHospitalId(hospitalId)));
+        if (!this.materialHospitalEntityRepository.existsByHospitalId(hospitalId)){
+            return new ErrorDataResult<>(null,"hastane bulunamadı");
+        }
+        return new SuccessDataResult<>(
+                this.materialHospitalMapper.materialEntitiesToDto(
+                        this.materialHospitalEntityRepository
+                                .getAllByHospitalId(hospitalId)));
     }
 
     @Override
