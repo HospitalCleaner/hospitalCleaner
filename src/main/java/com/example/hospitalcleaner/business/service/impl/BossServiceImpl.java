@@ -85,4 +85,9 @@ public class BossServiceImpl implements BossService {
         BossEntityDto bossEntityDto=bossMapper.bossEntityToDto(bossEntity);
         return new SuccessDataResult<BossEntityDto> (bossEntityDto);
     }
+
+    @Override
+    public String getByBossId(int id) {
+        return "Hello world...";
+    }
 }

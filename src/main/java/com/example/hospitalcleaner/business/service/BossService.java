@@ -16,5 +16,7 @@ public interface BossService {
     DataResult<BossEntityDto> update(BossEntityURequest bossEntityURequest);
     DataResult<BossEntityDto> delete(BossEntityDRequest bossEntityDRequest);
     DataResult<BossEntityDto> getById(int id);
+    String getByBossId(int id);
+
 
 }

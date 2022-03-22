@@ -52,4 +52,9 @@ public class BossController {
         return this.bossService.getById(id);
     }
 
+    @GetMapping("getByBossId")
+    public String getByBossId(int id){
+        return this.bossService.getByBossId(id);
+    }
+
 }
