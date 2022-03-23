@@ -36,7 +36,7 @@ public class BossServiceImpl implements BossService {
 
 
 
-        return new SuccessDataResult<>(bossEntityDtos);
+        return new SuccessDataResult<>(bossEntityDtos,"listelendi");
     }
 
 

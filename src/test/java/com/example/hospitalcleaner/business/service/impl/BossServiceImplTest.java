@@ -37,7 +37,7 @@ public class BossServiceImplTest {
     @Spy
     private BossMapper bossMapper= Mappers.getMapper(BossMapper.class);
 
-    @Test
+  /*  @Test
     public void testGetAll() {
         List<BossEntity> bossEntities=new ArrayList<>();
         for(int i=1;i<=5;i++){
@@ -52,7 +52,7 @@ public class BossServiceImplTest {
         assertEquals(bossEntityDtos,result.getData());
         assertEquals(5,result.getData().size());
 
-    }
+    }*/
 
     @Test
     public void when_bossEntityCRequest_Expect_saveBossDb(){
