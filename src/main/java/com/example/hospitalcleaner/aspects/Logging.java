@@ -1,4 +1,4 @@
-package com.example.hospitalcleaner;
+package com.example.hospitalcleaner.aspects;
 
 import com.example.hospitalcleaner.business.core.results.DataResult;
 import com.example.hospitalcleaner.business.dto.BossEntityDto;
@@ -33,7 +33,7 @@ public class Logging {
         //System.out.println("Creating Employee with name - " + name + " and id - " + empId);
     }
 
-    @AfterReturning(value = "execution(* com.example.hospitalcleaner.business.service.impl.*.*(..))",returning = "result")
+    /*@AfterReturning(value = "execution(* com.example.hospitalcleaner.business.service.impl.*.*(..))",returning = "result")
     public void writeResult(JoinPoint joinPoint, DataResult result) throws ClassNotFoundException,InstantiationException,IllegalAccessException,IllegalArgumentException, InvocationTargetException {
         //System.out.println(System.currentTimeMillis());
 
@@ -62,15 +62,15 @@ public class Logging {
         System.out.println(result.getData().toString());
         System.out.println(joinPoint.getTarget());
 
-    }
-    @Around(value = "execution(* com.example.hospitalcleaner.business.service.impl.*.*(..))")
+    }*/
+   /* @Around(value = "execution(* com.example.hospitalcleaner.business.service.impl.*.*(..))")
     public Object performance(ProceedingJoinPoint joinPoint)throws Throwable {
         long start=System.currentTimeMillis();
         Object result= joinPoint.proceed();
         long finish=System.currentTimeMillis();
         System.out.println(finish-start);
         return result;
-    }
+    }*/
 
 
 

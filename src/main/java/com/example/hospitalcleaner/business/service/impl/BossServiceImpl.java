@@ -1,25 +1,20 @@
 package com.example.hospitalcleaner.business.service.impl;
 
-import com.example.hospitalcleaner.Logging;
 import com.example.hospitalcleaner.business.core.mapper.BossMapper;
-import com.example.hospitalcleaner.business.core.mapper.BossMapperImpl;
 import com.example.hospitalcleaner.business.core.results.*;
 import com.example.hospitalcleaner.business.dto.BossEntityDto;
 import com.example.hospitalcleaner.business.requests.BossEntityCRequest;
 import com.example.hospitalcleaner.business.requests.BossEntityDRequest;
 import com.example.hospitalcleaner.business.requests.BossEntityURequest;
 import com.example.hospitalcleaner.business.service.BossService;
+import com.example.hospitalcleaner.customAnnotations.Performance;
 import com.example.hospitalcleaner.dataAccess.BossEntityRepository;
 import com.example.hospitalcleaner.entity.BossEntity;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BossServiceImpl implements BossService {
@@ -30,6 +25,7 @@ public class BossServiceImpl implements BossService {
     private BossEntityRepository bossEntityRepository;
 
     @Override
+    @Performance
     public DataResult<List<BossEntityDto>> getAll() {
     List<BossEntity> bossEntities=this.bossEntityRepository.findAll();
     List<BossEntityDto> bossEntityDtos=bossMapper.toBossDtoList(bossEntities);
