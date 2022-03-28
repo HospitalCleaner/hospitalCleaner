@@ -10,6 +10,8 @@ import com.example.hospitalcleaner.business.requests.BossEntityURequest;
 import com.example.hospitalcleaner.business.service.BossService;
 import com.example.hospitalcleaner.entity.BossEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,14 @@ public class BossController {
     public BossController(BossService bossService) {
         this.bossService = bossService;
     }
+
+    @GetMapping("getAllPage")
+    public DataResult<List<BossEntityDto>> getAllPage(
+            @RequestParam(name = "page",required = false,defaultValue = "1")int page,
+            @RequestParam(name = "size",required = false,defaultValue = "1")int size){
+        return bossService.getAllPage(page,size);
+    }
+
 
     @GetMapping("getAll")
     public DataResult<List<BossEntityDto>> getAll()  {

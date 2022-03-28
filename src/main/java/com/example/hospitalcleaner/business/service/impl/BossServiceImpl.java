@@ -11,6 +11,9 @@ import com.example.hospitalcleaner.customAnnotations.Performance;
 import com.example.hospitalcleaner.dataAccess.BossEntityRepository;
 import com.example.hospitalcleaner.entity.BossEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,5 +88,15 @@ public class BossServiceImpl implements BossService {
     @Override
     public String getByBossId(int id) {
         return "Hello world...";
+    }
+
+    @Override
+    public DataResult<List<BossEntityDto>> getAllPage(int page,int size) {
+        Pageable pageable1 = PageRequest.of(page,size);
+        Page<BossEntity> entityPage = this.bossEntityRepository.findAll(pageable1);
+
+        List<BossEntityDto> bossEntityDtos = this.bossMapper.toBossDtoList(entityPage.getContent());
+
+        return new SuccessDataResult<>(bossEntityDtos);
     }
 }
