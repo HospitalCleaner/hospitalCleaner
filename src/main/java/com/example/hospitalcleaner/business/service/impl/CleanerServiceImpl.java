@@ -59,6 +59,7 @@ public class CleanerServiceImpl implements CleanerService {
         if(!cleanerEntity.isPresent()){
             return new ErrorResult("cleaner bulunamadı.");
         }
+
        this.cleanerEntityRepository.deleteById(cleanerEntityDRequest.getId());
        return new SuccessResult("silindi.");
     }
@@ -69,6 +70,7 @@ public class CleanerServiceImpl implements CleanerService {
             return new ErrorDataResult<>(null);
         }
        CleanerEntity cleanerEntity=this.cleanerEntityRepository.getById(id);
+
        CleanerEntityDto cleanerEntityDto=cleanerMapper.cleanerEntityToDto(cleanerEntity);
        return new SuccessDataResult<>(cleanerEntityDto);
     }

@@ -11,4 +11,6 @@ public interface CleanerEntityRepository extends JpaRepository<CleanerEntity, In
 
     List<CleanerEntity> getAllByBossId(int bossId);
 
+
+
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://dozer.sourceforge.net"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping map-id="dozer_mapper">
+        <class-a>com.example.hospitalcleaner.dozer.DozerEntity</class-a>
+        <class-b>com.example.hospitalcleaner.dozer.DozerDto</class-b>
+
+        <field>
+            <a>nom</a>
+            <b>name</b>
+        </field>
+        <field>
+            <a>surnom</a>
+            <b>nickname</b>
+        </field>
+    </mapping>
+
+
+</mappings>
+
